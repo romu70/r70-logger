@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const utils = require('./utils.js');
 
 // Public interface
 
@@ -20,7 +21,7 @@ module.exports = {
     //TODO: Check "func" is a function
     //TODO: Check "callback"" is a function
     //TODO: Check "params"...TBD  
-
+    assert(utils.isFunction(func));
   }
 }
 
