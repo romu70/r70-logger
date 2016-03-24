@@ -3,7 +3,7 @@
 const assert = require('assert');
 const utils = require('./utils.js');
 
-// Public interface
+// Public interface, designed as a singleton, no need to run several instances
 
 module.exports = {  
   
