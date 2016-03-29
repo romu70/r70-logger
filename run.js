@@ -12,4 +12,6 @@ fs.readdir(path, function(err, files) {
 
 am.asyncCall(this, fs.readdir, [path], function(err, files) {
   console.log(files);
+  
+
 })
