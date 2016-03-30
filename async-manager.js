@@ -39,6 +39,10 @@ let mfc = function() {
     },
     toto() {
       console.log("TOTO");
+    },
+    
+    titi: function() {
+      console.log("titi");
     }
   });
 }
