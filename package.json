@@ -2,7 +2,7 @@
   "name": "secret-project",
   "version": "1.0.0",
   "description": "This is secret, damned!",
-  "main": "asyncm.js",
+  "main": "src/asyncm.js",
   "scripts": {
     "test": "tape asyncm.js"
   },
