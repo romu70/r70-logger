@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const am = require('./async-manager.js');
+const am = require('./asyncm.js');
 
 let path = "/home/rtisserand/Music/Eric Clapton";
 //let path = "/home/romu/Musique";
