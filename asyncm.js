@@ -20,6 +20,19 @@ let mfc = function() {
   // instance of the real callback object, private
   let callback;
   
+<<<<<<< HEAD:asyncm.js
+  return Object.assign(Object.create(metacallback), {
+    // Accessors
+    // TODO: Find a more simple syntax to directly pass the members at object creation
+    get caller() { return caller },
+    set caller(value) { caller = value },
+    get func() { return func; },
+    set func(value) { func = value },
+    get params() { return params; },
+    set params(value) { params = value },
+    get callback() { return callback; },
+    set callback(value) { callback = value },
+=======
   return Object.create(metacallback, {
     caller: {
       get: function () { return caller; },
@@ -44,6 +57,7 @@ let mfc = function() {
     titi: function() {
       console.log("titi");
     }
+>>>>>>> e061d15a25af13db779c27c67fb74ea3d78deb7d:async-manager.js
   });
 }
 
@@ -77,7 +91,6 @@ module.exports = {
     mc.func = func;
     mc.params = params;
     mc.callback = callback;
-    mc.toto();
 
     // Add the meta callback object as a property to the callback function
     callback.prototype.parent = mc;
