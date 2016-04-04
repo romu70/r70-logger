@@ -1,0 +1,22 @@
+{
+  "name": "secret-project",
+  "version": "1.0.0",
+  "description": "This is secret, damned!",
+  "main": "asyncm.js",
+  "scripts": {
+    "test": "tape asyncm.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romu70/secret-project.git"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "romu70",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romu70/secret-project/issues"
+  },
+  "homepage": "https://github.com/romu70/secret-project#readme"
+}
