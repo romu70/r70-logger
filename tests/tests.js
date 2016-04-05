@@ -1,15 +1,16 @@
 var test = require('tape');
-var asm = require("../src/asyncm.js");
 
-test('a simple test', function (t) {
-    t.plan(1);
+var loggertests = require("./logger.js");
 
-    
-    
-//     t.equal(typeof Date.now, 'function');
-//     var start = Date.now();
+// test('a simple test', function (t) {
+//     t.plan(1);
 // 
-//     setTimeout(function () {
-//         t.equal(Date.now() - start, 100);
-//     }, 100);
-});
+//     
+//     
+// //     t.equal(typeof Date.now, 'function');
+// //     var start = Date.now();
+// // 
+// //     setTimeout(function () {
+// //         t.equal(Date.now() - start, 100);
+// //     }, 100);
+// });
