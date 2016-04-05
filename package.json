@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/romu70/secret-project/issues"
   },
-  "homepage": "https://github.com/romu70/secret-project#readme"
+  "homepage": "https://github.com/romu70/secret-project#readme",
+  "devDependencies": {
+    "tape": "^4.5.1"
+  }
 }
