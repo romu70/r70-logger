@@ -7,11 +7,12 @@ var logger = require("../src/logger.js");
 //TODO: if initialized, a second init call must raise an exception
 
 test("Logger initialization", function (t) {
-    t.plan(3);
+    t.plan(4);
 
     t.equal(false, logger.initialized, "logger is not initialized at first time");
     t.throws(logger.init, null, "logger init doesn't accept null or empty");
     t.throws(function() { logger.init(null) }, null, "logger init doesn't accept null or empty");
+    t.throws(function() { logger.init(3) }, null, "logger file path must be a string");
  
 //     t.equal(typeof Date.now, 'function');
 //     var start = Date.now();
