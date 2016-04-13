@@ -3,7 +3,8 @@
 const path = require('path');
 const fs  = require('fs');
 
-// private stuff here
+// This is a pretty simple logger object which, as intended, logs messages it receives in a text file.
+// Order and timing are important here, that's why this logger only uses NodeJs "sync" functions.
 
 // File descriptor of the log file. If it's not null, that means the log has been initialized. 
 var fd = null;
