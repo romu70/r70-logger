@@ -5,8 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const logger = require("../src/logger.js");
 
-//TODO: if initialized, a second init call must raise an exception
-
 test("Logger opening/closing", function (t) {
     t.plan(11);
 
@@ -21,4 +19,13 @@ test("Logger opening/closing", function (t) {
     t.throws(function() { logger.init("./should-not-work.log"); }, null, "logger can be initialized only once");
     t.doesNotThrow(function() { logger.close(); }, null, "this should pass");
     t.equal(false, logger.isInitialized(), "logger is not initialized after closing");
+});
+
+test("Log messages", function (t) {
+    t.plan(4);
+
+    t.doesNotThrow(function() { logger.init("./should-work.log"); }, null, "this should pass");
+    t.throws(function() { logger.log(); }, null, "logger doesn't accept no input");
+    t.throws(function() { logger.log(null); }, null, "logger doesn't accept null input");
+    t.doesNotThrow(function() { logger.close(); }, null, "this should pass");
 });
