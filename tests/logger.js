@@ -24,11 +24,25 @@ test("Logger opening/closing", function (t) {
     t.equal(false, logger.isInitialized(), "logger is not initialized after closing");
 });
 
-test("Log messages", function (t) {
-    t.plan(4);
+test("Log functions", function (t) {
+    t.plan(11);
+
+    t.equal(true, typeof logger.message === 'function', "function 'message' must exist");
+    t.equal(true, typeof logger.warning === 'function', "function 'warning' must exist");
+    t.equal(true, typeof logger.error === 'function', "function 'error' must exist");
 
     t.doesNotThrow(function() { logger.init("./should-work.log"); }, null, "this should pass");
-    t.throws(function() { logger.log(); }, null, "logger doesn't accept no input");
-    t.throws(function() { logger.log(null); }, null, "logger doesn't accept null input");
+    t.throws(function() { logger.message(); }, null, "logger.message doesn't accept no input");
+    t.throws(function() { logger.message(null); }, null, "logger.message doesn't accept null input");
+    t.throws(function() { logger.warning(); }, null, "logger.message doesn't accept no input");
+    t.throws(function() { logger.warning(null); }, null, "logger.message doesn't accept null input");
+    t.throws(function() { logger.error(); }, null, "logger.message doesn't accept no input");
+    t.throws(function() { logger.error(null); }, null, "logger.message doesn't accept null input");
     t.doesNotThrow(function() { logger.close(); }, null, "this should pass");
 });
+
+//TODO: message are well recorded
+//TODO: level are correctly recorded
+//TODO: logs are timely recorded
+//TODO: logs are correctly ordered
+//TODO: Enable/Disable/Level
