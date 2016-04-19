@@ -13,14 +13,24 @@ var fd = null;
 function log(level, msg) {
   if(msg === undefined || msg === null)
     throw new TypeError("Logger.log: the msg can't be null");
-    
+  // Remove all spaces
+  let msg2 = msg.replace(/\s+/g, '');    
+  if(msg2.length === 0)
+    throw new TypeError("Logger.log: the msg can't be an empty string");
 
+  fs.appendFileSync(fd, `${formatDateTime()} - ${level} - ${msg}\n`);
 }
 
 // Returns a string of now, but formatted for the log
 function formatDateTime() {
-  let now = Date.now();
-  return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}:${now.getMilliseconds()}`;
+  let now = new Date();
+  let month = ("0" + now.getMonth()).slice(-2);
+  let day = ("0" + now.getDate()).slice(-2);
+  let hours = ("0" + now.getHours()).slice(-2);
+  let minutes = ("0" + now.getMinutes()).slice(-2);
+  let s = ("0" + now.getSeconds()).slice(-2);
+  let ms = ("00" + now.getMilliseconds()).slice(-3);
+  return `${now.getFullYear()}-${month}-${day}-${hours}:${minutes}:${s}:${ms}`;
 }
 
 // Returns a single object, this is a singleton!
@@ -46,7 +56,7 @@ module.exports = {
     fs.accessSync(dir, fs.W_OK);
     
     // At this point, all is ok, we should be able to open the log file.
-    fd = fs.openSync(logfile, 'w');      
+    fd = fs.openSync(logfile, 'a');      
   },
   
   // Close this log
@@ -61,7 +71,7 @@ module.exports = {
   },
   
   // Log the specified message to the file
-  message: function(msg) {
+  info: function(msg) {
     log("Info", msg);
   },
   
