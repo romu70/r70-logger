@@ -66,9 +66,10 @@ function write(f, fn) {
     logger.close();
 }
 
-
 //TODO: info are well recorded
 //TODO: level are correctly recorded
 //TODO: logs are timely recorded
 //TODO: logs are correctly ordered
 //TODO: Enable/Disable/Level
+//TODO: feature: trace level
+//TODO: traces output to console
