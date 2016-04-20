@@ -1,10 +1,10 @@
 {
-  "name": "secret-project",
-  "version": "1.0.0",
-  "description": "This is secret, damned!",
-  "main": "src/asyncm.js",
+  "name": "simple-logger",
+  "version": "0.0.1",
+  "description": "This is a simple logger, mainly used as a Js educative project.",
+  "main": "src/logger.js",
   "scripts": {
-    "test": "tape asyncm.js"
+    "test": "tape /tests/logger.js"
   },
   "repository": {
     "type": "git",
