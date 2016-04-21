@@ -46,7 +46,7 @@ test("Log functions - basic testing", function (t) {
     fs.unlinkSync("./should-work.log");    
 });
 
-test("Log functions", function (t) {
+test("Log levels", function (t) {
     t.plan(6);
     
     genericTest(t, "info", "Info");
@@ -92,7 +92,6 @@ function genericTest(t, type, toBeFound) {
     fs.unlinkSync(f);        
 }
 
-//TODO: logs are correctly ordered
 //TODO: Enable/Disable/Level
 //TODO: feature: trace level
 //TODO: traces output to console

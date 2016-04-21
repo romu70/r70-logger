@@ -10,8 +10,20 @@ const fs  = require('fs');
 // File descriptor of the log file. If it's not null, that means the log has been initialized. 
 var fd = null;
 
+// The logger level
+var level = null;
+
+// Boolean to specify if traces must also be sent to the console output. If true, traces are sent
+// to the console regarding the specified level value
+// True by default
+var console = true;
+
 // Write function which actually writes the message into the log file
 function log(level, msg) {
+  
+  if(level === 0)
+    return;
+  
   if(msg === undefined || msg === null)
     throw new TypeError("Logger.log: the msg can't be null");
   // Remove all spaces
@@ -24,6 +36,14 @@ function log(level, msg) {
 
 // Returns a single object, this is a singleton!
 module.exports = {
+  
+  LEVELS: {
+    Disabled: 0,   // No trace recorded in the log
+    Errors: 1,     // Only the errors are recorded
+    Warnings: 2,   // Only the errors and warnings are recorded
+    All: 3         // All level traces recorded
+  },
+  
   // Initializes the new logger
   // 
   // Inputs:
@@ -47,6 +67,14 @@ module.exports = {
     // At this point, all is ok, we should be able to open the log file.
     fd = fs.openSync(logfile, 'a');      
   },
+  
+  // Level accessors
+  set level(value) { level = value; },
+  get level() { return level; },
+  
+  // console accessors
+  set console(value) { console = value; },
+  get console() { return console; },
   
   // Close this log
   close: function() {
