@@ -54,6 +54,27 @@ test("Log functions", function (t) {
     genericTest(t, "error", "ERROR");
 });
 
+test("Logs ordering", function (t) {
+    t.plan(6);
+    
+    logger.init("./ordering.log");
+    for(let i = 0; i < 5; i++) {
+        logger.info(`test${i}`);
+    }
+    logger.close();
+    
+    let traces = fs.readFileSync("./ordering.log", 'utf8').split("\n");
+    // Ok, this is not right way to use the "length" property, but as we master entirely the array,
+    // this is not a big deal.
+    t.equal(true, traces.length === 6, "Check the number of lines");
+    
+    for(let i = 0; i < 5; i++) {
+        t.equal(true, traces[i].lastIndexOf(`test${i}`) > 0, "Check the traces are correctly ordered");
+    }
+    
+    fs.unlinkSync("./ordering.log");        
+});
+
 function genericTest(t, type, toBeFound) {
     let now = formatNow();
     let f = `./${type}.log`
@@ -71,19 +92,6 @@ function genericTest(t, type, toBeFound) {
     fs.unlinkSync(f);        
 }
 
-// Function which write to the log file and returns the log content
-// Inputs:
-// - log file path
-// - Function to be called to log traces
-// function write(f, fn) {
-//     logger.init(f);
-//     logger[fn]("test");
-//     logger.close();
-// }
-
-//TODO: info are well recorded
-//TODO: level are correctly recorded
-//TODO: logs are timely recorded
 //TODO: logs are correctly ordered
 //TODO: Enable/Disable/Level
 //TODO: feature: trace level
