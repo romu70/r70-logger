@@ -75,6 +75,16 @@ test("Logs ordering", function (t) {
     fs.unlinkSync("./ordering.log");        
 });
 
+test("Logs level", function (t) {
+    t.plan(1);
+    
+    logger.init("./levels.log");
+    logger.close();
+    
+    t.fail("TODO");    
+    fs.unlinkSync("./levels.log");        
+});
+
 function genericTest(t, type, toBeFound) {
     let now = formatNow();
     let f = `./${type}.log`
