@@ -1,5 +1,6 @@
 'use strict';
 
+const formatNow = require('../src/utils.js').formatNow;
 const logger = require("../src/logger.js");
 const test = require('tape');
 const fs = require('fs');
@@ -45,26 +46,40 @@ test("Log functions - basic testing", function (t) {
     fs.unlinkSync("./should-work.log");    
 });
 
-test("Log info", function (t) {
-    t.plan(1);
+test("Log functions", function (t) {
+    t.plan(6);
     
-    let f = "./info.log"
-    t.doesNotThrow(function() { write(f, "info"); }, null, "this should pass");
+    genericTest(t, "info", "Info");
+    genericTest(t, "warning", "Warning");
+    genericTest(t, "error", "ERROR");
+});
+
+function genericTest(t, type, toBeFound) {
+    let now = formatNow();
+    let f = `./${type}.log`
+    t.doesNotThrow(function() { 
+            logger.init(f);
+            logger[type]("test");
+            logger.close();
+        }, null, "this should pass");
     let c = fs.readFileSync(f, 'utf8');
             
+    // We remove the milliseconds in the checking because we're not sure the test is run in the same millisecond
+    t.equal(true, c.lastIndexOf(toBeFound) !== -1, `${type} is found in the file`);
+    
     // Delete the remaining log
-    fs.unlinkSync(f);    
-});
+    fs.unlinkSync(f);        
+}
 
 // Function which write to the log file and returns the log content
 // Inputs:
 // - log file path
 // - Function to be called to log traces
-function write(f, fn) {
-    logger.init(f);
-    logger[fn]("test");
-    logger.close();
-}
+// function write(f, fn) {
+//     logger.init(f);
+//     logger[fn]("test");
+//     logger.close();
+// }
 
 //TODO: info are well recorded
 //TODO: level are correctly recorded

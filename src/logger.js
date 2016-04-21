@@ -1,5 +1,6 @@
 'use strict';
 
+const formatNow = require('./utils.js').formatNow;
 const path = require('path');
 const fs  = require('fs');
 
@@ -18,19 +19,7 @@ function log(level, msg) {
   if(msg2.length === 0)
     throw new TypeError("Logger.log: the msg can't be an empty string");
 
-  fs.appendFileSync(fd, `${formatDateTime()} - ${level} - ${msg}\n`);
-}
-
-// Returns a string of now, but formatted for the log
-function formatDateTime() {
-  let now = new Date();
-  let month = ("0" + now.getMonth()).slice(-2);
-  let day = ("0" + now.getDate()).slice(-2);
-  let hours = ("0" + now.getHours()).slice(-2);
-  let minutes = ("0" + now.getMinutes()).slice(-2);
-  let s = ("0" + now.getSeconds()).slice(-2);
-  let ms = ("00" + now.getMilliseconds()).slice(-3);
-  return `${now.getFullYear()}-${month}-${day}-${hours}:${minutes}:${s}:${ms}`;
+  fs.appendFileSync(fd, `${formatNow()} - ${level} - ${msg}\n`);
 }
 
 // Returns a single object, this is a singleton!
