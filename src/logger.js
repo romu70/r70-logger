@@ -23,7 +23,7 @@ var level = LEVELS.All;
 // Boolean to specify if traces must also be sent to the console output. If true, traces are sent
 // to the console regarding the specified level value
 // True by default
-var console = true;
+var out2console = true;
 
 // Write function which actually writes the message into the log file
 function log(msglevel, msg) {
