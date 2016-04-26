@@ -120,6 +120,4 @@ function levelsTest(t, type, shouldChange, msg) {
     let newsize = fs.statSync("./levels.log").size;
     t.equal(!shouldChange, newsize === size, msg);    
 }
-//TODO: Enable/Disable/Level
-//TODO: feature: trace level
 //TODO: traces output to console
