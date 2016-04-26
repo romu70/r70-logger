@@ -4,6 +4,7 @@ const formatNow = require('../src/utils.js').formatNow;
 const logger = require("../src/logger.js");
 const test = require('tape');
 const fs = require('fs');
+const util = require('util');
 
 test("Logger opening/closing", function (t) {
     t.plan(14);
@@ -75,13 +76,23 @@ test("Logs ordering", function (t) {
     fs.unlinkSync("./ordering.log");        
 });
 
-test("Logs level", function (t) {
-    t.plan(1);
+test("Logs level filtering", function (t) {
+    t.plan(4);
     
     logger.init("./levels.log");
+    logger.level = logger.LEVELS.Disabled;
+    t.equal(true, logger.level === logger.LEVELS.Disabled, "set logger level works");
+
+    // DISABLED, no change
+    levelsTest(t, "info", false);
+
+    logger.level = logger.LEVELS.Errors;
+    levelsTest(t, "info", false, "ERRORS only, no change");
+    levelsTest(t, "error", true, "ERRORS only, change");
+
+
     logger.close();
     
-    t.fail("TODO");    
     fs.unlinkSync("./levels.log");        
 });
 
@@ -102,6 +113,13 @@ function genericTest(t, type, toBeFound) {
     fs.unlinkSync(f);        
 }
 
+function levelsTest(t, type, shouldChange, msg) {
+    // Get the file size before running the log function
+    let size = fs.statSync("./levels.log").size;
+    logger[type]("test");
+    let newsize = fs.statSync("./levels.log").size;
+    t.equal(!shouldChange, newsize === size, msg);    
+}
 //TODO: Enable/Disable/Level
 //TODO: feature: trace level
 //TODO: traces output to console

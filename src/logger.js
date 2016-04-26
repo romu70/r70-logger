@@ -7,11 +7,18 @@ const fs  = require('fs');
 // This is a pretty simple logger object which, as intended, logs messages it receives in a text file.
 // Order and timing are important here, that's why this logger only uses NodeJs "sync" functions.
 
+var LEVELS = {
+    Disabled: 0,   // No trace recorded in the log
+    Errors: 1,     // Only the errors are recorded
+    Warnings: 2,   // Only the errors and warnings are recorded
+    All: 3         // All level traces recorded
+  };
+
 // File descriptor of the log file. If it's not null, that means the log has been initialized. 
 var fd = null;
 
 // The logger level
-var level = null;
+var level = LEVELS.All;
 
 // Boolean to specify if traces must also be sent to the console output. If true, traces are sent
 // to the console regarding the specified level value
@@ -19,10 +26,7 @@ var level = null;
 var console = true;
 
 // Write function which actually writes the message into the log file
-function log(level, msg) {
-  
-  if(level === 0)
-    return;
+function log(msglevel, msg) {
   
   if(msg === undefined || msg === null)
     throw new TypeError("Logger.log: the msg can't be null");
@@ -31,18 +35,13 @@ function log(level, msg) {
   if(msg2.length === 0)
     throw new TypeError("Logger.log: the msg can't be an empty string");
 
-  fs.appendFileSync(fd, `${formatNow()} - ${level} - ${msg}\n`);
+  fs.appendFileSync(fd, `${formatNow()} - ${msglevel} - ${msg}\n`);
 }
 
 // Returns a single object, this is a singleton!
 module.exports = {
   
-  LEVELS: {
-    Disabled: 0,   // No trace recorded in the log
-    Errors: 1,     // Only the errors are recorded
-    Warnings: 2,   // Only the errors and warnings are recorded
-    All: 3         // All level traces recorded
-  },
+  LEVELS: LEVELS,
   
   // Initializes the new logger
   // 
@@ -89,16 +88,19 @@ module.exports = {
   
   // Log the specified message to the file
   info: function(msg) {
-    log("Info", msg);
+    if (level > LEVELS.Warnings)
+      log("Info", msg);
   },
   
   // Log the specified warning to the file
   warning: function(msg) {
-    log("Warning", msg);
+    if (level > LEVELS.Errors)
+      log("Warning", msg);
   },
   
   // Log the specified error to the file
   error: function(msg) {
-    log("ERROR", msg);    
+    if (level > LEVELS.Disabled)
+      log("ERROR", msg);    
   },
 }
