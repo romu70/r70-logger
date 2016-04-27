@@ -18,7 +18,7 @@ const logger = require("simple-logger.js");
 
 // Logger is implemented as a singleton, no new, no factory, just use the object you've got
 logger.init("your-log-file-path");
-logger.level = logger.LEVELS.Warnings // Or keep the All default value
+logger.level = logger.LEVELS.Warnings; // Or keep the All default value
 
 logger.info("message to be logged"); // Or warning or error methods depending on the level you want
 
