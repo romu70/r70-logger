@@ -77,7 +77,7 @@ test("Logs ordering", function (t) {
 });
 
 test("Logs level filtering", function (t) {
-    t.plan(4);
+    t.plan(11);
     
     logger.init("./levels.log");
     logger.level = logger.LEVELS.Disabled;
@@ -88,8 +88,18 @@ test("Logs level filtering", function (t) {
 
     logger.level = logger.LEVELS.Errors;
     levelsTest(t, "info", false, "ERRORS only, no change");
+    levelsTest(t, "warning", false, "ERRORS only, no change");
     levelsTest(t, "error", true, "ERRORS only, change");
 
+    logger.level = logger.LEVELS.Warnings;
+    levelsTest(t, "info", false, "Info not logged, no change");
+    levelsTest(t, "warning", true, "Warnings logged, change");
+    levelsTest(t, "error", true, "ERRORS logged, change");
+    
+    logger.level = logger.LEVELS.All;
+    levelsTest(t, "info", true, "All logged,  change");
+    levelsTest(t, "warning", true, "All logged,  change");
+    levelsTest(t, "error", true, "All logged,  change");
 
     logger.close();
     
