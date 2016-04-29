@@ -25,6 +25,15 @@ test("Logger opening/closing", function (t) {
     t.equal(false, logger.isInitialized(), "logger is not initialized after closing");
 });
 
+test("Log functions - when uninitailized", function (t) {
+    t.plan(4);
+
+    t.equal(false, logger.isInitialized(), "logger is not initialized");
+    t.throws(function() { logger.info("test"); }, null, "logger must be initialized first");
+    t.throws(function() { logger.warning("test"); }, null, "logger must be initialized first");
+    t.throws(function() { logger.error("test"); }, null, "logger must be initialized first");
+});
+
 test("Log functions - basic testing", function (t) {
     t.plan(14);
 
@@ -77,7 +86,7 @@ test("Logs ordering", function (t) {
 });
 
 test("Logs level filtering", function (t) {
-    t.plan(4);
+    t.plan(11);
     
     logger.init("./levels.log");
     logger.level = logger.LEVELS.Disabled;
@@ -88,8 +97,18 @@ test("Logs level filtering", function (t) {
 
     logger.level = logger.LEVELS.Errors;
     levelsTest(t, "info", false, "ERRORS only, no change");
+    levelsTest(t, "warning", false, "ERRORS only, no change");
     levelsTest(t, "error", true, "ERRORS only, change");
 
+    logger.level = logger.LEVELS.Warnings;
+    levelsTest(t, "info", false, "Warnings level, no change");
+    levelsTest(t, "warning", true, "Warnings level change");
+    levelsTest(t, "error", true, "Warnings level, change");
+
+    logger.level = logger.LEVELS.All;
+    levelsTest(t, "info", true, "All level, change");
+    levelsTest(t, "warning", true, "All level change");
+    levelsTest(t, "error", true, "All level, change");
 
     logger.close();
     
