@@ -101,25 +101,14 @@ test("Logs level filtering", function (t) {
     levelsTest(t, "error", true, "ERRORS only, change");
 
     logger.level = logger.LEVELS.Warnings;
-<<<<<<< HEAD
     levelsTest(t, "info", false, "Warnings level, no change");
     levelsTest(t, "warning", true, "Warnings level change");
     levelsTest(t, "error", true, "Warnings level, change");
 
     logger.level = logger.LEVELS.All;
-    levelsTest(t, "info", true, "All level, change");
-    levelsTest(t, "warning", true, "All level change");
-    levelsTest(t, "error", true, "All level, change");
-=======
-    levelsTest(t, "info", false, "Info not logged, no change");
-    levelsTest(t, "warning", true, "Warnings logged, change");
-    levelsTest(t, "error", true, "ERRORS logged, change");
-    
-    logger.level = logger.LEVELS.All;
     levelsTest(t, "info", true, "All logged,  change");
     levelsTest(t, "warning", true, "All logged,  change");
     levelsTest(t, "error", true, "All logged,  change");
->>>>>>> 3f62dff109cc5dfa9f98c47cfe5c67ad2a80a467
 
     logger.close();
     
