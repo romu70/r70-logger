@@ -21,7 +21,8 @@ var fd = null;
 var level = LEVELS.All;
 
 // Boolean to specify if traces must also be sent to the console output. If true, traces are sent
-// to the console regarding the specified level value
+// to the console regarding the specified level value. It respects the specification of the standard
+// Node console object: both warnings and errors are sent to stderr.
 // True by default
 var out2console = true;
 
@@ -35,7 +36,9 @@ function log(msglevel, msg) {
   if(msg2.length === 0)
     throw new TypeError("Logger.log: the msg can't be an empty string");
 
-  fs.appendFileSync(fd, `${formatNow()} - ${msglevel} - ${msg}\n`);
+  let m = `${formatNow()} - ${msglevel} - ${msg}\n`
+  fs.appendFileSync(fd, m);
+  return m;
 }
 
 // Returns a single object, this is a singleton!
@@ -71,9 +74,9 @@ module.exports = {
   set level(value) { level = value; },
   get level() { return level; },
   
-  // console accessors
-  set console(value) { console = value; },
-  get console() { return console; },
+  // out2console accessors
+  set out2console(value) { out2console = value; },
+  get out2console() { return out2console; },
   
   // Close this log
   close: function() {
@@ -88,19 +91,34 @@ module.exports = {
   
   // Log the specified message to the file
   info: function(msg) {
-    if (level > LEVELS.Warnings)
-      log("Info", msg);
+    if (level > LEVELS.Warnings){
+      let m = log("Info", msg);
+
+      if(out2console === true) {
+          console.log(m);
+      }
+    }
   },
   
   // Log the specified warning to the file
   warning: function(msg) {
-    if (level > LEVELS.Errors)
-      log("Warning", msg);
+    if (level > LEVELS.Errors) {
+      let m = log("Warning", msg);
+
+      if(out2console === true) {
+          console.warn(m);
+      }
+    }
   },
   
   // Log the specified error to the file
   error: function(msg) {
-    if (level > LEVELS.Disabled)
-      log("ERROR", msg);    
+    if (level > LEVELS.Disabled) {
+      let m = log("ERROR", msg);    
+
+      if(out2console === true) {
+          console.error(m);
+      }
+    }
   },
 }

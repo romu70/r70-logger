@@ -115,6 +115,29 @@ test("Logs level filtering", function (t) {
     fs.unlinkSync("./levels.log");        
 });
 
+test("Output to console", function (t) {
+    t.plan(2);
+    
+    logger.init("./console.log");
+    logger.level = logger.LEVELS.All;
+
+    t.pass("Easier to see with eyes than writing a complete test case");
+    logger.info("visible info message");
+    logger.warning("visible warning message");
+    logger.error("visible error message");
+
+    // No more console output
+    t.pass("No more console output");
+    logger.out2console = false;
+    logger.info("invisible info message");
+    logger.warning("invisible warning message");
+    logger.error("invisible error message");
+
+    logger.close();
+    
+    fs.unlinkSync("./console.log");        
+});
+
 function genericTest(t, type, toBeFound) {
     let now = formatNow();
     let f = `./${type}.log`
