@@ -1,7 +1,7 @@
 {
   "name": "simple-logger",
   "version": "0.0.1",
-  "description": "This is a simple logger, mainly used as a Js educative project.",
+  "description": "This is a simple logger, mainly used as a Js learning project.",
   "main": "src/logger.js",
   "scripts": {
     "test": "tape /tests/logger.js"
