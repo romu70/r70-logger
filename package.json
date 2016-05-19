@@ -1,5 +1,5 @@
 {
-  "name": "simple-logger",
+  "name": "r70-logger",
   "version": "0.0.1",
   "description": "This is a simple logger, mainly used as a Js learning project.",
   "main": "src/logger.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romu70/simple-logger"
+    "url": "git+https://github.com/romu70/r70-logger"
   },
   "keywords": [
     "none"
@@ -16,9 +16,9 @@
   "author": "romu70",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romu70/simple-logger"
+    "url": "https://github.com/romu70/r70-logger"
   },
-  "homepage": "https://github.com/romu70/simple-logger#readme",
+  "homepage": "https://github.com/romu70/r70-logger#readme",
   "devDependencies": {
     "tape": "^4.5.1"
   }
