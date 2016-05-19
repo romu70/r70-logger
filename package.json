@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romu70/secret-project.git"
+    "url": "git+https://github.com/romu70/simple-logger"
   },
   "keywords": [
     "none"
@@ -16,9 +16,9 @@
   "author": "romu70",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romu70/secret-project/issues"
+    "url": "https://github.com/romu70/simple-logger"
   },
-  "homepage": "https://github.com/romu70/secret-project#readme",
+  "homepage": "https://github.com/romu70/simple-logger#readme",
   "devDependencies": {
     "tape": "^4.5.1"
   }
